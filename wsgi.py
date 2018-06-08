@@ -4,6 +4,7 @@ import re
 import os
 import sys
 import time
+import json
 import redis
 import bottle
 import logging
@@ -15,7 +16,7 @@ from bottle import route
 
 STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
 
-SERVICE_URL = "http://www.sann-gmbh.com/currencyapi/"
+SERVICE_URL = "http://financy.dbeuchert.com/"
 # Mirrors: # status as of Mar2013
 #   Working...
 #     http://www.sann-gmbh.com/currencyapi/
@@ -29,9 +30,12 @@ logging.basicConfig()
 log = logging.getLogger('bottle-currency')
 log.setLevel(logging.DEBUG)
 
-if os.getenv('REDIS_URL'):
-    url = urlparse.urlparse(os.getenv('REDIS_URL'))
-    rdb = redis.Redis(host=url.hostname, port=url.port, password=url.password)
+if os.getenv('VCAP_SERVICES'):
+    env_vars = os.environ['VCAP_SERVICES']
+    redis_service = json.loads(env_vars)['redis'][0]
+    credentials = redis_service['credentials']
+    REDIS_DB = 0
+    rdb = redis.Redis(host=credentials['host'], port=credentials['port'], password=credentials['password'])
 else:
     rdb = redis.Redis('localhost')
 
