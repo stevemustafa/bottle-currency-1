@@ -6,7 +6,6 @@ Currency Converter is a web app for converting currencies.
 
 ## Technology Stack
 
- * ActivePython - http://www.activestate.com/activepython
  * Bottle web framework - http://bottlepy.org/
  * Redis NoSQL database - http://redis.io/
 
@@ -16,21 +15,15 @@ database for 3 hours.
 
 ## Usage
 
-### Deploy on Stackato
+### Deploy on SCF 
 
-    Server side:
-    $ kato role add redis # if not present
-
-    Client side:
-    $ git clone git://github.com/Stackato-Apps/bottle-currency.git
+    $ cf create-service redis <plan> currency
+    $ git clone git://github.com/scf-samples/bottle-currency.git
     $ cd bottle-currency
-    $ stackato push -n
+    $ cf push 
 
-Then open application in a browser.
 
-    $ stackato open
-
-### Without Stackato
+### Without SCF 
 
 It is possible to run the app without Stackato, if necessary.
 
