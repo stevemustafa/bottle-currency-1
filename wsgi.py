@@ -83,7 +83,7 @@ def get_rate(src, dst):
             rate = rdb.get(src + dst)
             if rate is None:
                 rate = get_upstream_rate(src, dst)
-                rdb.setex(src + dst, rate, 3*60*60)
+                rdb.setex(src + dst, (3*60*60), rate)
             return '' if rate == '' else str(float(rate))
         except ConnectionError:
             time.sleep(1) # recoverable, retry after 1 sec
