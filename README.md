@@ -25,7 +25,7 @@ database for 3 hours.
 
 ### Without SCF 
 
-It is possible to run the app without Stackato, if necessary.
+It is possible to run the app without SCF, if necessary.
 
  1. Install and start Redis database, see http://redis.io for details
 
